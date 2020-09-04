@@ -42,18 +42,18 @@ const App:React.FC = () => {
         ? (
           <>
             <h2>Loading weather data...</h2>
-            <p>Please allow location access</p>
+            <p>Please allow location access, if you haven't.</p>
           </> 
           )
         : (
-          <div>
+          <>
             <PlaceHeader>{cityData}</PlaceHeader>
             <Forecast type='current' weatherData={[weatherData.current]} />
             <Forecast type='hourly' weatherData={weatherData.hourly} />
             <Forecast type='daily' weatherData={weatherData.daily} />
-          </div>
+          </>
       )}
-      <footer>Site made by Áron Berényi</footer>
+      <footer>Site made by <a rel="noopener noreferrer" href="https://numeroflip.github.io/" target="_blank" >Áron Berényi</a></footer>
     </Layout>
   );
 }

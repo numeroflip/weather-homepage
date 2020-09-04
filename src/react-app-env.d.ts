@@ -26,7 +26,10 @@ type IconData = {
   iconDesc: string
 }
 
+type FrTypes =  'current' | 'daily' | 'hourly'
+
+
 type ForecastType = {
-  type: 'current' | 'daily' | 'hourly',
+  type: FrTypes,
   weatherData: SingleWeather[]
 }
