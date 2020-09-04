@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {getPosition, fetchWeather, formatWeatherData, IMGURL} from './utils'
+import {getPosition, fetchWeather, formatWeatherData} from './utils'
 import Forecast from './components/Forecast'
+import Layout from './components/Layout'
 
 
 function App() {
@@ -32,10 +33,10 @@ function App() {
   },[position])
 
   return (
-    <div>
+    <Layout>
       
       <div> {weatherData === undefined 
-        ? <h2>Loading</h2> 
+        ? <h2>Loading weather data...</h2> 
         : (
           <div>
             <Forecast type='current' weatherData={[weatherData.current]} />
@@ -44,7 +45,7 @@ function App() {
           </div>
       )}
       </div>
-    </div>
+    </Layout>
   );
 }
 

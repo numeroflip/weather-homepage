@@ -3,6 +3,18 @@ const APIKEY :string = '403cce006227cec0d2ed2cad78e6ccf2'
 const URL:string = 'https://api.openweathermap.org/data/2.5/onecall'
 export const IMGURL:string = 'http://openweathermap.org/img/wn/'
 
+export const getDayFromUNIX = (timestamp : number) => {
+  const date = new Date(timestamp * 1000)
+  const day:string = date.toLocaleDateString('en-US', { weekday: 'long' })
+  return day
+}
+
+export const getHourFromUNIX = (timestamp: number) :string => {
+  const date = new Date(timestamp * 1000)
+  const hour = date.getHours()
+  return hour + ':00'
+}
+
 
 export const getPosition = async () => {
   try {
@@ -32,13 +44,14 @@ export const formatWeatherData = (data:any):Weather => {
   let dailyArr = daily.map((weather: any) : SingleWeather => ({
     temp: weather.temp.day,
     icon: weather.weather[0].icon,
+    time: weather.dt,
     iconDesc: weather.weather[0].description
 
      }))
   let hourlyArr = hourly.map((weather: any) : SingleWeather =>({
     temp: weather.temp,
     icon: weather.weather[0].icon,
-    time: new Date(weather.dt * 1000).getHours(),
+    time: weather.dt,
     iconDesc: weather.weather[0].description
     }))
     hourlyArr = hourlyArr.slice(0,24)
