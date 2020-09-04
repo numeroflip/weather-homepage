@@ -19,3 +19,13 @@ type Weather = {
   hourly: SingleWeather[]
 
 }
+
+type IconData = {
+  icon: string,
+  iconDesc: string
+}
+
+type ForecastType = {
+  type: 'current' | 'daily' | 'hourly',
+  weatherData: Weather
+}

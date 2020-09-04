@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {getPosition, fetchWeather, formatWeatherData, IMGURL} from './utils'
+import Forecast from './components/Forecast'
 
 
 function App() {
@@ -32,11 +33,14 @@ function App() {
 
   return (
     <div>
-      <h1>Hey, what's the weather today?</h1>
+      
       <div> {weatherData === undefined 
         ? <h2>Loading</h2> 
         : (
           <div>
+            <Forecast type='current' weatherData={weatherData} />
+            <Forecast type='hourly' weatherData={weatherData} />
+            <Forecast type='daily' weatherData={weatherData} />
             <h2>Current Weather is: {weatherData?.current.temp}°C</h2>
             <img src={`${IMGURL}${weatherData.current.icon}.png`} alt={weatherData.current.iconDesc}/>
             <div>
