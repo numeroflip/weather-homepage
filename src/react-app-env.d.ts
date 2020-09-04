@@ -9,6 +9,7 @@ type Coords = {
 type SingleWeather = {
   temp: number,
   icon: string,
+  iconDesc?: string,
   time?: number
 }
 
