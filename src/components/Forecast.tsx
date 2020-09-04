@@ -7,7 +7,6 @@ import Tile from './Tile'
 const Title = styled.h2`
   font-size: 2rem;
 `
-
 const WeatherGrid = styled.div`
   display: grid;
   grid-auto-flow: row;
@@ -16,9 +15,6 @@ const WeatherGrid = styled.div`
   margin: 1rem 0;
   align-items: center;
 `
-
-
-
 const TileGrid = styled.div`
   display: grid;
   grid-auto-flow: column;

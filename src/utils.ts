@@ -2,7 +2,7 @@
 // Info for OpenWeather
 const APIKEY :string = '403cce006227cec0d2ed2cad78e6ccf2'
 const URL:string = 'https://api.openweathermap.org/data/2.5/onecall'
-export const IMGURL:string = 'http://openweathermap.org/img/wn/'
+export const IMGURL:string = 'https://openweathermap.org/img/wn/'
 
 // Info for LocationIQ (Reverse geocoding)
 const APIKEYCITY :string = 'cf45dfc024bc96'

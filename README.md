@@ -1,5 +1,8 @@
 # Weather homepage
 A simple page, showing the current weather, a 24 hour and a 7 day forecast.
+
+[Live demo](https://numero-weather.netlify.app/)
+
 ## Preview
 ![](preview.png)
 
