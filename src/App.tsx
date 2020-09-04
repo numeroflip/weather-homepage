@@ -38,23 +38,9 @@ function App() {
         ? <h2>Loading</h2> 
         : (
           <div>
-            <Forecast type='current' weatherData={weatherData} />
-            <Forecast type='hourly' weatherData={weatherData} />
-            <Forecast type='daily' weatherData={weatherData} />
-            <h2>Current Weather is: {weatherData?.current.temp}°C</h2>
-            <img src={`${IMGURL}${weatherData.current.icon}.png`} alt={weatherData.current.iconDesc}/>
-            <div>
-              <h2>24 hour forecast</h2>
-              {weatherData.hourly.map((hour, i) => (
-                <div key={'hourly-'+i}>
-                  <div>{hour.time}:00</div>
-                  <img src={`${IMGURL}${hour.icon}.png`} alt={hour.iconDesc}/>
-                  <p>{hour.temp}°C</p>
-                </div>
-              ))} 
-            </div>
-            <div>
-            </div>
+            <Forecast type='current' weatherData={[weatherData.current]} />
+            <Forecast type='hourly' weatherData={weatherData.hourly} />
+            <Forecast type='daily' weatherData={weatherData.daily} />
           </div>
       )}
       </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import WeatherIcon from './WeatherIcon'
+// import WeatherIcon from './WeatherIcon'
 
 
 
@@ -8,36 +9,45 @@ const Title = styled.h2`
   font-size: 2rem;
 `
 
+const WeatherGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  border: 1px solid red;
+  max-width: 1200px;
+  justify-content: center;
+  margin: 0 auto;
+  align-items: center;
+`
+
+const Tile = styled.div`
+margin: 2rem;
+`
+const TileGrid = styled.div`
+  display: flex;
+
+`
 
 const Forecast : React.FC<ForecastType> = ({type, weatherData}) => {
 
-  let usedData: SingleWeather[]
   let title: string = ''
-  
-  switch(type) {
-    case 'daily' :
-      title = 'Daily Forecast'
-      usedData = weatherData.daily
-      break
-    case 'hourly' :
-      title = '24 Hour Forecast'
-      usedData = weatherData.hourly
-      break
-    case 'current' :
-      title = 'Current Weather'
-      usedData = [weatherData.current]
-      break
-  }
-
+  if (type === 'daily') {title = 'Daily Forecast'}
+  else if (type === 'hourly') { title = '24 Hour Forecast'}
+  else if (type === 'current') {title = 'Current Weather'}
 
   return (
-    <div>
+    <WeatherGrid>
       <Title>{title}</Title>
-      {/* {usedData.map(() => (
-
-      ))}  */}
-      {/* <WeatherIcon icon={usedData.icon} iconDesc={usedData.iconDesc} /> */}
-    </div>
+      <TileGrid>
+        {weatherData.map(((weather, i) => (
+          <Tile key={type + i}>
+              <p>{weather.temp}°C</p>
+              <WeatherIcon icon={weather.icon} iconDesc={weather.iconDesc} />
+        <p>{weather.time && weather.time + ':00'}</p>
+        </Tile>
+        )))}
+      </TileGrid>
+    </WeatherGrid>
   )
 
 }

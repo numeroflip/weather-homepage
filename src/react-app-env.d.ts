@@ -9,7 +9,7 @@ type Coords = {
 type SingleWeather = {
   temp: number,
   icon: string,
-  iconDesc?: string,
+  iconDesc: string,
   time?: number
 }
 
@@ -27,5 +27,5 @@ type IconData = {
 
 type ForecastType = {
   type: 'current' | 'daily' | 'hourly',
-  weatherData: Weather
+  weatherData: SingleWeather[]
 }
