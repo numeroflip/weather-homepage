@@ -19,7 +19,7 @@ export const getPosition = async () => {
 
 export const fetchWeather = async (lat :number, lon :number) => {
   try {
-    let weatherData = await fetch(`${URL}?lat=${lat}&lon=${lon}&appid=${APIKEY}`)
+    let weatherData = await fetch(`${URL}?lat=${lat}&lon=${lon}&units=metric&appid=${APIKEY}`)
     let parsedData = await weatherData.json()
     return parsedData
   } catch(e) {console.log(e)}
