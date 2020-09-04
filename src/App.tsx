@@ -25,15 +25,13 @@ const App:React.FC = () => {
   useEffect(() => {
     const handleWeatherAndCity = async () => {
       if(position !== undefined) {
-
         const weatherData = await fetchWeather(position.latitude, position.longitude)
         const formatedData = formatWeatherData(weatherData)
         setWeatherData(formatedData)
-
+        console.log(weatherData)
         const city = await fetchCityFromCoords(position.latitude, position.longitude)
         setCityData(city.display_name)
-      }
-    }
+    }}
     handleWeatherAndCity()
 
   },[position])

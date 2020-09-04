@@ -11,6 +11,7 @@ type SingleWeather = {
   icon: string,
   iconDesc: string,
   time?: number
+  
 }
 
 type Weather = {

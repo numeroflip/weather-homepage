@@ -14,10 +14,22 @@ export const fetchCityFromCoords = async (lat:number, lon:number) => {
   return cityObj
 }
 
+export const getPercent = (temp : number) : number => {
+  const max = 50;
+  const min =-30;
+  const range = max - min;
+  return ((temp - min) / range) * 100
+}
+
 export const getDayFromUNIX = (timestamp : number) => {
   const date = new Date(timestamp * 1000)
   const day:string = date.toLocaleDateString('en-US', { weekday: 'long' })
   return day
+}
+
+export const isDay = (date: Date) :boolean => {
+  const hour = date.getHours()
+  return hour >=7 && hour <= 20 
 }
 
 export const getHourFromUNIX = (timestamp: number) :string => {
@@ -53,14 +65,14 @@ export const fetchWeather = async (lat :number, lon :number) => {
 export const formatWeatherData = (data:any):Weather => {
   const {current, daily, hourly} = data
   let dailyArr = daily.map((weather: any) : SingleWeather => ({
-    temp: weather.temp.day,
+    temp: Math.round(weather.temp.day),
     icon: weather.weather[0].icon,
     time: weather.dt,
     iconDesc: weather.weather[0].description
 
      }))
   let hourlyArr = hourly.map((weather: any) : SingleWeather =>({
-    temp: weather.temp,
+    temp: Math.round(weather.temp),
     icon: weather.weather[0].icon,
     time: weather.dt,
     iconDesc: weather.weather[0].description
@@ -70,7 +82,7 @@ export const formatWeatherData = (data:any):Weather => {
 
   const returnObj : Weather = {
 
-    current: {temp: current.temp, icon:current.weather[0].icon, iconDesc: current.weather[0].description
+    current: {temp: Math.round(current.temp), icon:current.weather[0].icon, iconDesc: current.weather[0].description
     },
     daily: dailyArr,
     hourly: hourlyArr,
