@@ -10,6 +10,9 @@ const Layout = styled.div`
 
     footer {
       margin-top: auto;
+      margin-bottom: 1rem;
+      color: rgba(0,0,0,0.5);
+      font-size: .9rem;
     }
 `
 

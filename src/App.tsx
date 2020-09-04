@@ -1,50 +1,61 @@
 import React, {useState, useEffect} from 'react';
-import {getPosition, fetchWeather, formatWeatherData} from './utils'
+import {getPosition, fetchWeather, formatWeatherData, fetchCityFromCoords} from './utils'
 import Forecast from './components/Forecast'
 import Layout from './components/Layout'
+import PlaceHeader from './components/PlaceHeader'
 
 
-function App() {
+
+const App:React.FC = () => {
 
   const [position, setPosition] = useState<Coords | undefined>(undefined)
   const [weatherData, setWeatherData] = useState<Weather | undefined>(undefined)
+  const [cityData, setCityData] = useState("Loading")
 
-
+  // Get the position
   useEffect(()=> {
     const updatePosition = async () => {
-        const pos = await getPosition() 
+        const pos: Coords | undefined = await getPosition() 
         setPosition(pos)
     }
     updatePosition()
   }, [])
 
+  // update weather based on position
   useEffect(() => {
-    const handleWeather = async () => {
+    const handleWeatherAndCity = async () => {
       if(position !== undefined) {
+
         const weatherData = await fetchWeather(position.latitude, position.longitude)
-        console.log(weatherData)
         const formatedData = formatWeatherData(weatherData)
         setWeatherData(formatedData)
-        console.log(formatedData)
+
+        const city = await fetchCityFromCoords(position.latitude, position.longitude)
+        setCityData(city.display_name)
       }
-  }
-    handleWeather()
+    }
+    handleWeatherAndCity()
 
   },[position])
 
   return (
-    <Layout>
-      
-      <div> {weatherData === undefined 
-        ? <h2>Loading weather data...</h2> 
+    <Layout> 
+       {weatherData === undefined 
+        ? (
+          <>
+            <h2>Loading weather data...</h2>
+            <p>Please allow location access</p>
+          </> 
+          )
         : (
           <div>
+            <PlaceHeader>{cityData}</PlaceHeader>
             <Forecast type='current' weatherData={[weatherData.current]} />
             <Forecast type='hourly' weatherData={weatherData.hourly} />
             <Forecast type='daily' weatherData={weatherData.daily} />
           </div>
       )}
-      </div>
+      <footer>Site made by Áron Berényi</footer>
     </Layout>
   );
 }

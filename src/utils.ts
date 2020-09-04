@@ -1,7 +1,18 @@
 
+// Info for OpenWeather
 const APIKEY :string = '403cce006227cec0d2ed2cad78e6ccf2'
 const URL:string = 'https://api.openweathermap.org/data/2.5/onecall'
 export const IMGURL:string = 'http://openweathermap.org/img/wn/'
+
+// Info for LocationIQ (Reverse geocoding)
+const APIKEYCITY :string = 'cf45dfc024bc96'
+const URLCITY: string = 'https://eu1.locationiq.com/v1/reverse.php?'
+
+export const fetchCityFromCoords = async (lat:number, lon:number) => {
+  const city = await fetch(`${URLCITY}key=${APIKEYCITY}&lat=${lat}&lon=${lon}&format=json`)
+  const cityObj = await city.json()
+  return cityObj
+}
 
 export const getDayFromUNIX = (timestamp : number) => {
   const date = new Date(timestamp * 1000)
@@ -25,7 +36,7 @@ export const getPosition = async () => {
      
     } 
     return coords
-  } catch(e) {console.log(e)}
+  } catch(e) {console.error('Please allow location access in order to use the app', e)}
 }
 
 export const fetchWeather = async (lat :number, lon :number) => {
