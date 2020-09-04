@@ -26,16 +26,16 @@ const TileWrapper = styled.div<TileWrapperProps>`
   box-shadow: 1px 1px 10px rgba(0,0,0, 0.15);
   border-radius: 2rem;
   min-width: 60px;
+  overflow: hidden;
 
-    &:after {
+    &:after { 
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       height: ${props => props.perc + '%'};
       width: 100%;
-      border-radius: 0 0 2rem 2rem;
-      background-color: ${({isDay}) => isDay ? 'rgba(255, 132, 2, 0.15)' : 'rgba(121, 190, 232, 0.2)'};
+      background-color: ${({isDay}) => isDay ? 'rgba(255, 132, 2, 0.2)' : 'rgba(121, 190, 232, 0.2)'};
       z-index: 20;
     }
 `

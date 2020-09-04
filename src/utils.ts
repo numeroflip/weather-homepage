@@ -8,11 +8,10 @@ export const IMGURL:string = 'https://openweathermap.org/img/wn/'
 const APIKEYCITY :string = 'cf45dfc024bc96'
 const URLCITY: string = 'https://eu1.locationiq.com/v1/reverse.php?'
 
-export const fetchCityFromCoords = async (lat:number, lon:number) => {
-  const city = await fetch(`${URLCITY}key=${APIKEYCITY}&lat=${lat}&lon=${lon}&format=json`)
-  const cityObj = await city.json()
-  return cityObj
-}
+
+/* 
+======================HELPER FUNCTIONS===============================
+*/
 
 export const getPercent = (temp : number) : number => {
   const max = 50;
@@ -21,7 +20,7 @@ export const getPercent = (temp : number) : number => {
   return ((temp - min) / range) * 100
 }
 
-export const getDayFromUNIX = (timestamp : number) => {
+export const getDayFromUNIX = (timestamp : number) : string => {
   const date = new Date(timestamp * 1000)
   const day:string = date.toLocaleDateString('en-US', { weekday: 'long' })
   return day
@@ -38,18 +37,22 @@ export const getHourFromUNIX = (timestamp: number) :string => {
   return hour + ':00'
 }
 
-
+// HTML Geolocation
 export const getPosition = async () => {
   try {
-    const position: any = await new Promise((req, res) => navigator.geolocation.getCurrentPosition(req, res))
+    const position: {coords: {latitude: number, longitude: number}} = await new Promise((req, res) => navigator.geolocation.getCurrentPosition(req, res))
     const coords:Coords = {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
-     
     } 
     return coords
   } catch(e) {console.error('Please allow location access in order to use the app', e)}
 }
+
+
+/* 
+======================FETCHING DATA===============================
+*/
 
 export const fetchWeather = async (lat :number, lon :number) => {
   try {
@@ -59,25 +62,34 @@ export const fetchWeather = async (lat :number, lon :number) => {
   } catch(e) {console.log(e)}
 }
 
+export const fetchCityFromCoords = async (lat:number, lon:number) => {
+  const city = await fetch(`${URLCITY}key=${APIKEYCITY}&lat=${lat}&lon=${lon}&format=json`)
+  const cityObj = await city.json()
+  return cityObj
+}
 
-
-
+/* 
+======================FORMATING DATA===============================
+*/
 export const formatWeatherData = (data:any):Weather => {
+
   const {current, daily, hourly} = data
+  
   let dailyArr = daily.map((weather: any) : SingleWeather => ({
     temp: Math.round(weather.temp.day),
     icon: weather.weather[0].icon,
-    time: weather.dt,
+    time: weather.dt,                           // Time comes is in UNIX timestamp!
     iconDesc: weather.weather[0].description
-
      }))
+
   let hourlyArr = hourly.map((weather: any) : SingleWeather =>({
     temp: Math.round(weather.temp),
     icon: weather.weather[0].icon,
     time: weather.dt,
     iconDesc: weather.weather[0].description
     }))
-    hourlyArr = hourlyArr.slice(0,24)
+
+    hourlyArr = hourlyArr.slice(0,24)  // for 24 hour forecast
 
 
   const returnObj : Weather = {
